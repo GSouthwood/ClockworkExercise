@@ -14,6 +14,7 @@
     <PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite.Design" Version="1.1.4" />
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.3" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Core" Version="2.0.1" />
+    <PackageReference Include="NodaTime" Version="2.2.5" />
   </ItemGroup>
 
   <ItemGroup>
@@ -23,5 +24,9 @@
 
   <ItemGroup>
     <Compile Remove="Controllers\HomeController.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="Properties\launchSettings.json" />
   </ItemGroup>
 </Project>

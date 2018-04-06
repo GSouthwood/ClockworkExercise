@@ -1,21 +1,40 @@
-﻿<script>
-function UserAction() {
-    var xhttp = new XMLHttpRequest();
-    xhttp.onreadystatechange = function() {
-        if (this.readyState == 4 && this.status == 200) {
-            document.getElementById("output").innerHTML = this.responseText;
-        }
-    };
-    xhttp.open("GET", "http://127.0.0.1:5000/api/currenttime", true);
-    xhttp.setRequestHeader("Content-type", "application/json");
-    xhttp.send();
+﻿@using Clockwork.Web.Models;
 
+@{
+    ViewBag.Title = "Clockwork";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
-</script>
+
+@model List<CurrentTimeQuery>
+
+<script src="~/Scripts/API-script.js"></script>
 
 <h2>AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</h2>
 
+@Html.DropDownList("Time Zone", CurrentTimeQuery.GetTimeZones() as List<SelectListItem>, new { @id = "zone" });
+
+<p id="selection"></p>
 
 <button type="submit" onclick="UserAction()">Get the time</button>
 
-<p id="output"></p>
+<ol>
+    @foreach (var item in Model)
+    {
+
+        <li style="background-color: lightblue">
+            Client is @item.ClientIp <br />
+            Local Time is @item.Time <br />
+            UTCTime is @item.UTCTime <br />
+            
+            @if (item.TimeZoneSelectionTime != "")
+             {
+                    <p>Time in @item.TimeZoneSelection.Substring(item.TimeZoneSelection.IndexOf("/") + 1) 
+                    is @item.TimeZoneSelectionTime</p>
+                    
+
+             }
+
+
+        </li>
+    }
+</ol>

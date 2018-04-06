@@ -4,11 +4,17 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Mvc.Ajax;
+using System.Configuration;
+using Clockwork.Web.DAL;
+using Clockwork.Web.Models;
+//using System.Data.DataSetExtensions;
+
 
 namespace Clockwork.Web.Controllers
 {
     public class HomeController : Controller
     {
+        private string connectionString = ConfigurationManager.ConnectionStrings["CurrentTimeQueries"].ConnectionString;
         public ActionResult Index()
         {
             var mvcName = typeof(Controller).Assembly.GetName();
@@ -17,7 +23,10 @@ namespace Clockwork.Web.Controllers
             ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor;
             ViewData["Runtime"] = isMono ? "Mono" : ".NET";
 
-            return View();
+            CurrentTimeQuerySqlDAL currentTimeQuerySql = new CurrentTimeQuerySqlDAL(connectionString);
+            List<CurrentTimeQuery> ctq = currentTimeQuerySql.GetCurrentTimeQuery();
+            
+            return View(ctq);
         }
     }
 }
