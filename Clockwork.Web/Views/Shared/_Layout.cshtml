@@ -7,14 +7,19 @@
     <script src="~/Scripts/jquery-3.3.1.min.js"></script>
     <script src="~/Scripts/moment.js"></script>
     <script src="~/Scripts/moment-timezone-with-data.js"></script>
-
+    @* bootstrap and fontawesome style sources *@
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome-all.css" rel="stylesheet" />
+    <link href="~/Content/fontawesome.css" rel="stylesheet" />
     @* script files for API and methods *@
     
 </head>
 <body>
     <header>
-        Like Clockwork
+        <h2>AWH Clockwork Project @ViewData["Version"] on @ViewData["Runtime"]!</h2>
     </header>
-	@RenderBody()
+    <div class="container">
+        @RenderBody()
+    </div>
 </body>
 </html>

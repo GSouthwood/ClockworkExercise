@@ -39,7 +39,8 @@ namespace Clockwork.API.Controllers
                 //get the requested timeZone
                 //DateTimeZone tzTime = DateTimeZoneProviders.Tzdb[timeZone];
                 timeZoneSelection = timeZone;
-                timeZoneSelectionTime = CurrentTimeQuery.ConvertToDifferentTimeZoneFromUtc(timeZone).ToShortTimeString();
+                timeZoneSelectionTime = CurrentTimeQuery
+                    .ConvertToDifferentTimeZoneFromUtc(CurrentTimeQuery.GetZoneId(timeZone)).ToShortTimeString();
                 
             }
 

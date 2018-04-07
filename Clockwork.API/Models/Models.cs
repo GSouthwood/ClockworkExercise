@@ -25,37 +25,20 @@ namespace Clockwork.API.Models
         //so it is made a string here instead
         public string TimeZoneSelectionTime { get; set; }
 
-
-        public int[] ConvertToDateArray()
-        {
-            int[] dateArray = {
-                DateTime.Now.Year,
-                DateTime.Now.Month,
-                DateTime.Now.Day,
-                DateTime.Now.Hour,
-                DateTime.Now.Minute,
-                DateTime.Now.Second
-            };
-            return dateArray;
-        }
-
-        public static LocalDateTime LocalDateTime()
-        {
-
-            CurrentTimeQuery ctq = new CurrentTimeQuery();
-            int[] isoDate = ctq.ConvertToDateArray();
-            LocalDateTime timeZoneSelectionServerTime = 
-                new LocalDateTime(isoDate[0], isoDate[1], isoDate[2], isoDate[3], isoDate[4], isoDate[5]);
-            return timeZoneSelectionServerTime;
-
-        }
-
+        //Convert to the selected time zone's local time from the server time in UTC
         public static DateTime ConvertToDifferentTimeZoneFromUtc(string timeZone)
         {
             var newTimeZoneTime = DateTimeZoneProviders.Tzdb[timeZone];
             return Instant.FromDateTimeUtc(DateTime.UtcNow)
                           .InZone(newTimeZoneTime)
                           .ToDateTimeUnspecified();
+        }
+
+        //get the full name of the location associated with the time zone id
+        //to be used in the GET
+        public static string GetZoneId(string longZoneId)
+        {
+            return longZoneId.Substring(longZoneId.IndexOf("-") + 2);
         }
 
     }
