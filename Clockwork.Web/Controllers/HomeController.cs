@@ -28,5 +28,18 @@ namespace Clockwork.Web.Controllers
             
             return View(ctq);
         }
+        public ActionResult GetTime()
+        {
+            var mvcName = typeof(Controller).Assembly.GetName();
+            var isMono = Type.GetType("Mono.Runtime") != null;
+
+            ViewData["Version"] = mvcName.Version.Major + "." + mvcName.Version.Minor;
+            ViewData["Runtime"] = isMono ? "Mono" : ".NET";
+
+            CurrentTimeQuerySqlDAL currentTimeQuerySql = new CurrentTimeQuerySqlDAL(connectionString);
+            List<CurrentTimeQuery> ctq = currentTimeQuerySql.GetCurrentTimeQuery();
+
+            return View(ctq);
+        }
     }
 }

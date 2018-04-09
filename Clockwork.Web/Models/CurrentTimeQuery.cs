@@ -43,23 +43,25 @@ namespace Clockwork.Web.Models
                 SelectListItem l = new SelectListItem();
                 if (timeZonesList.Count == 1)
                 {
-                    l.Text = TZNames.GetNamesForTimeZone(id, "en-US")
-                        .Generic + " - " + DateTimeZoneProviders.Tzdb[id].ToString();
+                    l.Text = DateTimeZoneProviders.Tzdb[id].ToString()
+                        + " - " + TZNames.GetNamesForTimeZone(id, "en-US").Generic;
                     timeZonesList.Add(l);
                 }          
                 else if (timeZonesList.Count >= 2)
                 {
                     for (int i = 1; i < timeZonesList.Count; i++)
                     {
-                        if (timeZonesList[i].Text.Contains(TZNames.GetNamesForTimeZone(id, "en-US").Generic))
+                        if (timeZonesList[i].Text.Contains("-") && timeZonesList[i].Text.
+                            Substring(0, timeZonesList[i].Text.IndexOf("-"))
+                            .Equals(TZNames.GetNamesForTimeZone(id, "en-US").Generic))
                         {
                             isPresent = true;
                         }
                     }
                     if (!isPresent)
                     {
-                        l.Text = TZNames.GetNamesForTimeZone(id, "en-US")
-                        .Generic + " - " + DateTimeZoneProviders.Tzdb[id].ToString();
+                        l.Text = DateTimeZoneProviders.Tzdb[id].ToString()
+                        + " - " + TZNames.GetNamesForTimeZone(id, "en-US").Generic;
                         timeZonesList.Add(l);
                     }
                     isPresent = false;
@@ -78,13 +80,20 @@ namespace Clockwork.Web.Models
             string name = longZoneId
                 .Substring(longZoneId.IndexOf("-") + 2);
 
-            return name.Substring(name.IndexOf("/")).Replace("_", " ");
+            return name.Substring(name.IndexOf("/") + 1).Replace("_", " ");
         }
 
         //get the generic name of the time zone that is selected
         public static string GetShortTimeZoneName(string longZoneId)
         {
-            return TZNames.GetNamesForTimeZone(longZoneId, "en-US").Generic;
+            if (longZoneId == "")
+            {
+                return "";
+            }
+            return longZoneId.Substring(0, longZoneId.IndexOf("-"));
+            
+                
+            
         }
         
 

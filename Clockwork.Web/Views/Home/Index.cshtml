@@ -10,49 +10,26 @@
 <script src="~/Scripts/API-script.js"></script>
 
 <div class="time_zone_picker">
-    <h5>Select a Time Zone</h5>
+    Select a Time Zone
     @Html.DropDownList("Time Zone", CurrentTimeQuery.GetTimeZones() as List<SelectListItem>, new { @id = "zone" })
     <br />
     <br />
-    
-<button type="submit" onclick="UserAction()">Get the time</button>
-<br />
-<br />
-    <div id="selection"></div>
     <br />
-        <h4>Most recent query...</h4>
-    <div class="recent_query">
-        <h3>@CurrentTimeQuery.GetShortTimeZoneName(Model[Model.Count - 1].TimeZoneSelection) - @Model[Model.Count - 1].TimeZoneSelectionTime</h3>
+    <button type="submit" onclick="FirstAction()"> Get the time</button>
+
+    <br />
+    <br />
+    <div id="selection"></div>
+    <div class="loader_box">
+        <div class="loader"></div>
     </div>
+    
 </div>
 
-<div class="time_log_box">
-    <h5 class="title_queries">Time Queries</h5>    
-    <div class="time_log">
-        @foreach (var item in Model)
-        {
-            <div class="row">
-                <div class="col-md-2">
-                    <i class="fas fa-laptop"></i><br />
-                    @item.ClientIp
-                </div>
-                <div class="col-md-3">
-                    <i class="far fa-clock"></i> (Server Time)<br />
-                    @item.Time.ToShortTimeString() <br />
-                </div>
-                <div class="col-md-3">
-                    <i class="far fa-clock"></i> (UTCTime) <br />
-                    @item.UTCTime
-                </div>
-                @if (item.TimeZoneSelectionTime != "")
-                {
-                    <div class="col-md-4">
-                        <i class="far fa-clock"></i> (@CurrentTimeQuery.GetShortTimeZoneName(item.TimeZoneSelection)) <br />
-                        <div id="selectionTime">@item.TimeZoneSelectionTime</div>
-                    </div>
-                }
-            </div>
+@{
+    Html.RenderPartial("TimeQueries");
+}
 
-        }
-    </div>
-</div>
+
+
+

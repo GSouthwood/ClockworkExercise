@@ -1,0 +1,37 @@
+﻿@using Clockwork.Web.Models
+
+@model List<CurrentTimeQuery>
+
+<div class="title_queries">
+    Time Queries
+</div>
+<ul class="time_log">
+
+    @foreach (var item in Model)
+    {
+        <li>
+            <div class="clock">
+                <i class="far fa-clock fa-4x"></i>
+                <div style="display: inline-block">
+                    <div style="display: block">
+                        Time Query for Client Address <b>@item.ClientIp</b>
+                    </div>
+                    <div style="display: inline">
+
+                        Server Time: <b>@item.Time.ToShortTimeString()</b>
+                    </div>
+                    <div style="display: inline">
+                        UTC Time: <b>@item.UTCTime.ToShortTimeString()</b>
+                    </div>
+                    @if (item.TimeZoneSelectionTime != "")
+                    {
+                        <div style="display: block">
+                            @item.TimeZoneSelection <span id="selectionTime"><b>@item.TimeZoneSelectionTime</b></span>
+                        </div>
+                    }
+                </div>
+            </div>
+
+        </li>
+    }
+</ul>

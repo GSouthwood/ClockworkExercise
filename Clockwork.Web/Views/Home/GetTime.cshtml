@@ -1,0 +1,57 @@
+﻿@using Clockwork.Web.Models;
+
+@{
+    ViewBag.Title = "TimeZone";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@model List<CurrentTimeQuery>
+<link href="~/Content/stylesheet.css" rel="stylesheet" />
+<script src="~/Scripts/API-script.js"></script>
+
+<div class="time_zone_picker">
+    Select a Time Zone
+    @Html.DropDownList("Time Zone", CurrentTimeQuery.GetTimeZones() as List<SelectListItem>, new { @id = "zone" })
+    <br />
+    <br />
+    <br />
+    <button type="submit" onclick="UserAction()"> Get the time</button>
+
+    <br />
+    <br />
+    <div id="selection"></div>
+    <div class="loader_box">
+        <div class="loader"></div>
+    </div>
+    <br />
+        <br />
+        @if (Model[0].TimeZoneSelection.Equals(""))
+        {
+            <div class="recent_query">
+                Server Time - @Model[0].Time.ToShortTimeString()
+            </div>
+        }
+        else if (Model[0].Time == DateTime.Now)
+        {
+            <div>
+                No Time Zone Found <br />
+                UTC Time - @Model[0].UTCTime.ToShortTimeString()
+            </div>
+
+
+        }
+        else
+        {
+            <div class="recent_query">
+
+                @Model[0].TimeZoneSelection - @Model[0].TimeZoneSelectionTime
+            </div>
+        }
+
+    </div>
+
+
+@{
+    Html.RenderPartial("TimeQueries");
+}
+

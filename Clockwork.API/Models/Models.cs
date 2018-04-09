@@ -28,10 +28,20 @@ namespace Clockwork.API.Models
         //Convert to the selected time zone's local time from the server time in UTC
         public static DateTime ConvertToDifferentTimeZoneFromUtc(string timeZone)
         {
-            var newTimeZoneTime = DateTimeZoneProviders.Tzdb[timeZone];
-            return Instant.FromDateTimeUtc(DateTime.UtcNow)
-                          .InZone(newTimeZoneTime)
-                          .ToDateTimeUnspecified();
+            try
+            {
+                var newTimeZoneTime = DateTimeZoneProviders.Tzdb[timeZone];
+                return Instant.FromDateTimeUtc(DateTime.UtcNow)
+                              .InZone(newTimeZoneTime)
+                              .ToDateTimeUnspecified();
+            }
+            catch
+            {
+                return DateTime.Now;
+            }
+                
+            
+
         }
 
         //get the full name of the location associated with the time zone id

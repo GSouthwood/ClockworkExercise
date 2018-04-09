@@ -11,7 +11,7 @@ namespace Clockwork.Web.DAL
     public class CurrentTimeQuerySqlDAL : ICurrentTimeQueryDAL
     {
         private readonly string connectionString;
-        private const string SQLite_GetCurrentTimeQueries = "SELECT * FROM CurrentTimeQueries";
+        private const string SQLite_GetCurrentTimeQueries = "SELECT * FROM CurrentTimeQueries ORDER BY CurrentTimeQueryId DESC";
 
         public CurrentTimeQuerySqlDAL(string connectionString)
         {
