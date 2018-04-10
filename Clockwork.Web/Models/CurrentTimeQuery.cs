@@ -66,37 +66,10 @@ namespace Clockwork.Web.Models
                     }
                     isPresent = false;
                 }
-                
-                
-
+ 
             }
             return timeZonesList;
         }
-
-        //get the name of the location associated with the time zone id
-        //without the country
-        public static string GetShortLocationName(string longZoneId)
-        {
-            string name = longZoneId
-                .Substring(longZoneId.IndexOf("-") + 2);
-
-            return name.Substring(name.IndexOf("/") + 1).Replace("_", " ");
-        }
-
-        //get the generic name of the time zone that is selected
-        public static string GetShortTimeZoneName(string longZoneId)
-        {
-            if (longZoneId == "")
-            {
-                return "";
-            }
-            return longZoneId.Substring(0, longZoneId.IndexOf("-"));
-            
-                
-            
-        }
-        
-
 
     }
 }

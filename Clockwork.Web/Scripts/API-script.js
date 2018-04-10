@@ -6,7 +6,7 @@ function FirstAction() {
     var params = "?timeZone=" + $("#selection").html();
     xhttp.onreadystatechange = function () {
         if (this.readyState == 4 && this.status == 200) {
-            window.location.replace("http://localhost:50594/Home/GetTime");
+            window.location.replace("http://localhost:50594/Home/Index?id=showzone");
             $(".loader").css("visibility", "visible");
         }
     };

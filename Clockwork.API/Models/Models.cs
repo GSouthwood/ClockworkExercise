@@ -28,19 +28,11 @@ namespace Clockwork.API.Models
         //Convert to the selected time zone's local time from the server time in UTC
         public static DateTime ConvertToDifferentTimeZoneFromUtc(string timeZone)
         {
-            try
-            {
-                var newTimeZoneTime = DateTimeZoneProviders.Tzdb[timeZone];
-                return Instant.FromDateTimeUtc(DateTime.UtcNow)
-                              .InZone(newTimeZoneTime)
-                              .ToDateTimeUnspecified();
-            }
-            catch
-            {
-                return DateTime.Now;
-            }
-                
-            
+
+            var newTimeZone = DateTimeZoneProviders.Tzdb[timeZone];
+            return Instant.FromDateTimeUtc(DateTime.UtcNow)
+                          .InZone(newTimeZone)
+                          .ToDateTimeUnspecified();
 
         }
 
@@ -48,7 +40,7 @@ namespace Clockwork.API.Models
         //to be used in the GET
         public static string GetZoneId(string longZoneId)
         {
-            return longZoneId.Substring(longZoneId.IndexOf("-") + 2);
+            return longZoneId.Substring(0, longZoneId.IndexOf(" "));
         }
 
     }
