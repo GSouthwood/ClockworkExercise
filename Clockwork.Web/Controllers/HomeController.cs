@@ -26,7 +26,7 @@ namespace Clockwork.Web.Controllers
             CurrentTimeQuerySqlDAL currentTimeQuerySql = new CurrentTimeQuerySqlDAL(connectionString);
             List<CurrentTimeQuery> ctq = currentTimeQuerySql.GetCurrentTimeQuery();
 
-            //id used to indicate whether time zone is shown or not
+            //id used to indicate whether time zone box is shown or not
             if (String.IsNullOrEmpty(id))
             {
                 return View("Index", ctq);

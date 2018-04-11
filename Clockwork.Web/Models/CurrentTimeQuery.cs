@@ -30,11 +30,13 @@ namespace Clockwork.Web.Models
         //Time after conversion from time zone selection
         public string TimeZoneSelectionTime { get; set; }
 
+
         //create the dropdown list for selecting time zone
         public static List<SelectListItem> GetTimeZones()
         {
             List<SelectListItem> timeZonesList = new List<SelectListItem>();
             SelectListItem s = new SelectListItem();
+            //start with a double dash for default no selection
             s.Text = "--";
             timeZonesList.Add(s);
             bool isPresent = false;
@@ -47,6 +49,7 @@ namespace Clockwork.Web.Models
                         + " - " + TZNames.GetNamesForTimeZone(id, "en-US").Generic;
                     timeZonesList.Add(l);
                 }          
+                //check if the name has already been entered  
                 else if (timeZonesList.Count >= 2)
                 {
                     for (int i = 1; i < timeZonesList.Count; i++)

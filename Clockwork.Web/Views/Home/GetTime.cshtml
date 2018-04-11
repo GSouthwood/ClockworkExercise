@@ -31,15 +31,6 @@
                 Server Time - @Model[0].Time.ToShortTimeString()
             </div>
         }
-        else if (Model[0].Time == DateTime.Now)
-        {
-            <div>
-                No Time Zone Found <br />
-                UTC Time - @Model[0].UTCTime.ToShortTimeString()
-            </div>
-
-
-        }
         else
         {
             <div class="recent_query">

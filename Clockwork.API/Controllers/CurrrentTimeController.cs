@@ -44,7 +44,6 @@ namespace Clockwork.API.Controllers
                 
             }
 
-
             var returnVal = new CurrentTimeQuery
             {
                 UTCTime = utcTime,
